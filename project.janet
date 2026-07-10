@@ -1,7 +1,10 @@
 (declare-project
   :name "typequest"
   :description "A minimalist terminal typing coach"
-  :dependencies ["https://github.com/MorganPeterson/jermbox"]) # or "jermbox"
+  :dependencies [
+    "https://github.com/MorganPeterson/jermbox"
+    "https://github.com/ianthehenry/judge"
+  ])
 
 (declare-executable
   :name "typequest"
