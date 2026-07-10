@@ -1,5 +1,9 @@
 # TypeQuest ⌨️
 
+[![CI](https://github.com/shmuelhanoch/typequest/actions/workflows/ci.yml/badge.svg)](https://github.com/shmuelhanoch/typequest/actions/workflows/ci.yml)
+
+A minimalist terminal typing coach built with Janet and Nix.
+
 A type-driven engine for terminal typing games, built in Janet.
 
 ## Quick Start

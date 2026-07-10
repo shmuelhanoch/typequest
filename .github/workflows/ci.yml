@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Check out the repository source code
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      # 2. Install Nix and configure a modern cache
+      - name: Install Nix
+        uses: cachix/install-nix-action@v25
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      # 3. Download Janet/JPM dependencies inside the Flake environment
+      - name: Fetch Dependencies
+        run: nix develop .# --command jpm deps
+
+      # 4. Run your new compilation sanity test
+      - name: Run Sanity Tests
+        run: nix develop .# --command jpm test
+
+      # 5. Verify the full native build compiles smoothly
+      - name: Verify Production Build
+        run: nix develop .# --command jpm build
