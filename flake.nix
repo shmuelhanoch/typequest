@@ -1,29 +1,30 @@
 {
-  description = "TypeQuest: A lightweight CLI typing coach written in Janet";
-
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:Nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { inherit system; };
-       Medieval = pkgs.janet;
+        pkgs = nixpkgs.legacyPackages.${system};
       in
       {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             janet
-            jpm # Janet Project Manager (for building/dependencies)
+            jpm
+            stdenv.cc
+            gnumake
+            pkg-config
           ];
-
+          
           shellHook = ''
-            echo "================================================="
-            echo " Welcome to the TypeQuest Development Environment"
-            echo " Janet Version: $(janet -v)"
-            echo "================================================="
+            # Force JPM to install packages locally in your project root 
+            # instead of trying to write to /usr/local/lib or Nix store paths
+            export JANET_PATH="$PWD/.jpm"
+            export JANET_TREE="$PWD/.jpm"
+            export PATH="$PWD/.jpm/bin:$PATH"
           '';
         };
       });
