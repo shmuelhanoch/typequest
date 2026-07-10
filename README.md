@@ -1,33 +1,24 @@
 # TypeQuest ⌨️
 
-A minimalist terminal typing coach designed for speed and focus.
+A type-driven engine for terminal typing games, built in Janet.
 
-## Prerequisites
+## Quick Start
 
-Ensure you have your environment ready via Nix or standard system tools.
+This project uses [`Nix`](https://nixos.org/) to manage dependencies and build tools automatically.
+
+### To run using `Nix`:
 
 ```bash
-# Enter the development environment (handles compilers, Janet, and JPM)
+# 1. Enter the development environment
 nix develop
 
-Quick Start
+# 2. Install local C dependencies (jermbox, etc)
+jpm deps
 
-Run the application directly using the just automation runner:
-Bash
+# 3. Launch the game instantly via the interpreter
+jpm run dev
+```
 
-# Fetch and compile C dependencies
-just deps
+### Without `Nix`
 
-# Launch the game instantly via the interpreter
-just run
-
-Building from Source
-
-To compile the codebase down to a highly optimized, standalone native binary:
-Bash
-
-# Build the production executable
-just build
-
-# Execute the compiled binary
-./build/typequest
+Install `Janet` manually [using your OS specific way](https://janet-lang.org/docs/index.html).
